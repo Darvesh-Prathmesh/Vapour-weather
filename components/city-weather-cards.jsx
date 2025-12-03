@@ -5,6 +5,7 @@ import { useSavedCities } from "@/hooks/useSavedCities"
 import { useCitiesWeather } from "@/hooks/useCitiesWeather"
 import { useUnitConverter } from "@/hooks/useUnitConverter"
 import { useAutoRefresh } from "@/hooks/useAutoRefresh"
+import { useWeatherData } from "@/hooks/useWeatherData"
 
 const weatherIcons = {
   Clear: <Sun className="h-7 w-7" />,
@@ -95,6 +96,7 @@ export function CityWeatherCards() {
   const converter = useUnitConverter()
   const scrollContainerRef = useRef(null)
   const [itemScales, setItemScales] = useState({})
+  const { currentWeather, loading: currentLocationLoading } = useWeatherData()
 
   const refreshData = useCallback(() => {
     setRefreshKey((prev) => prev + 1)
@@ -105,11 +107,38 @@ export function CityWeatherCards() {
   // Auto-refresh functionality
   useAutoRefresh(refreshData, [cities.length])
 
-  const loading = citiesLoading || weatherLoading
+  const loading = citiesLoading || weatherLoading || currentLocationLoading
+
+  // Build final list of cards: current location (if available) + saved cities
+  let displayWeatherData = weatherData || []
+
+  if (currentWeather) {
+    const currentLocationCard = {
+      id: "current-location",
+      country: currentWeather.country,
+      city: currentWeather.city,
+      temperature: currentWeather.temperature,
+      condition: currentWeather.condition,
+      description: currentWeather.description,
+      // Convert mph back to m/s for converter
+      windSpeedRaw: currentWeather.windSpeed != null ? currentWeather.windSpeed / 2.23694 : 0,
+      windSpeed: currentWeather.windSpeed,
+      humidity: currentWeather.humidity,
+      visibility: currentWeather.visibility,
+      feelsLike: currentWeather.feelsLike,
+      pressure: currentWeather.pressure,
+      windDirection: currentWeather.windDirection,
+      cloudiness: currentWeather.cloudiness,
+    }
+
+    // Avoid duplicating the same city if user already saved it
+    const filtered = displayWeatherData.filter((city) => city.city !== currentLocationCard.city)
+    displayWeatherData = [currentLocationCard, ...filtered]
+  }
 
   useEffect(() => {
     const container = scrollContainerRef.current
-    if (!container || !weatherData || weatherData.length === 0) return
+    if (!container || !displayWeatherData || displayWeatherData.length === 0) return
 
     const handleScroll = () => {
       const containerRect = container.getBoundingClientRect()
@@ -134,7 +163,7 @@ export function CityWeatherCards() {
       // Handle other cards with center focus effect
       const containerCenter = containerRect.top + containerRect.height / 2
 
-      weatherData.slice(1).forEach((city, index) => {
+      displayWeatherData.slice(1).forEach((city, index) => {
         const element = container.children[0]?.children[index + 1]
         if (!element) return
 
@@ -163,7 +192,7 @@ export function CityWeatherCards() {
 
     container.addEventListener('scroll', handleScroll)
     return () => container.removeEventListener('scroll', handleScroll)
-  }, [weatherData])
+    }, [displayWeatherData])
 
   if (loading) {
     return (
@@ -185,7 +214,7 @@ export function CityWeatherCards() {
     )
   }
 
-  if (!weatherData || weatherData.length === 0) {
+  if (!displayWeatherData || displayWeatherData.length === 0) {
     return (
       <div className="flex flex-col gap-6 w-[600px]">
         <div className="rounded-2xl bg-white/10 backdrop-blur-md p-6 text-center">
@@ -196,8 +225,8 @@ export function CityWeatherCards() {
   }
 
   // First city is the main one, rest are secondary
-  const mainCity = weatherData[0] ? { ...weatherData[0], isMain: true } : null
-  const otherCities = weatherData.slice(1)
+  const mainCity = displayWeatherData[0] ? { ...displayWeatherData[0], isMain: true } : null
+  const otherCities = displayWeatherData.slice(1)
 
   return (
     <div 
