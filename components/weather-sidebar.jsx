@@ -17,7 +17,7 @@ export function WeatherSidebar() {
   ]
 
   return (
-    <aside className="fixed left-4 top-4 bottom-4 flex w-20 flex-col items-center justify-between rounded-2xl bg-white/20 backdrop-blur-xl backdrop-saturate-150 py-6 z-50" style={{ backdropFilter: 'blur(24px) saturate(180%)' }}>
+    <aside className="hidden md:flex fixed left-4 top-4 bottom-4 w-20 flex-col items-center justify-between rounded-2xl bg-white/20 backdrop-blur-xl backdrop-saturate-150 py-6 z-50" style={{ backdropFilter: 'blur(24px) saturate(180%)' }}>
       {/* Logo */}
       <div className="flex flex-col items-center gap-8">
         <div className="text-white/90">

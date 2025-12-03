@@ -143,8 +143,8 @@ export function WeatherInfo() {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-between h-full py-8">
-        <div className="pl-16">
+      <div className="flex flex-col justify-between h-full py-6 md:py-8">
+        <div className="pl-4 sm:pl-8 md:pl-16">
           <div className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-md mb-6 animate-pulse">
             <span className="text-white text-sm font-medium">Loading...</span>
           </div>
@@ -157,7 +157,7 @@ export function WeatherInfo() {
 
   if (error || !currentWeather) {
     return (
-      <div className="flex flex-col justify-between h-full py-8">
+      <div className="flex flex-col justify-between h-full py-6 md:py-8 px-4 md:px-0">
         <div className="rounded-2xl bg-red-500/20 border border-red-500/40 text-red-100 text-sm p-4">
           {error ?? "Could not load weather data"}
         </div>
@@ -171,25 +171,25 @@ export function WeatherInfo() {
   const description = formatWeatherDescription(currentWeather)
 
   return (
-    <div className="flex flex-col justify-between h-full py-8">
+    <div className="flex flex-col justify-between h-full py-6 md:py-8">
       {/* Top section with badge and weather type */}
-      <div className="pl-16">
+      <div className="pl-4 sm:pl-8 md:pl-16 pr-4 md:pr-0">
         {/* Weather Forecast badge */}
-        <div className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-md mb-6">
-          <span className="text-white text-sm font-medium">Weather Forecast</span>
+        <div className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-md mb-4 md:mb-6">
+          <span className="text-white text-xs sm:text-sm font-medium">Weather Forecast</span>
         </div>
 
         {/* Weather type */}
-        <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
           {formatMainStatus(mainStatus)}
         </h1>
 
         {/* Weather description */}
-        <p className="text-white/80 text-base max-w-2xl leading-relaxed">{description}</p>
+        <p className="text-white/80 text-sm md:text-base max-w-full md:max-w-2xl leading-relaxed">{description}</p>
       </div>
 
       {/* Bottom section with daily forecast */}
-      <div className="mt-[100px]">
+      <div className="mt-10 md:mt-[100px] px-2 md:px-0">
         <TemperatureGraph forecast={forecast} />
       </div>
     </div>

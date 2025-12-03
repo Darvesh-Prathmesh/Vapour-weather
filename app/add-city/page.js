@@ -81,23 +81,23 @@ export default function AddCityPage() {
   }
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="min-h-screen overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="shrink-0 px-8 pt-8 pb-4 ml-8">
-        <h1 className="text-5xl font-bold text-white mb-3">Add City from Map</h1>
-        <p className="text-white/60 text-lg">
+      <div className="shrink-0 px-4 md:px-8 pt-6 md:pt-8 pb-4 md:ml-8">
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-2 md:mb-3">Add City from Map</h1>
+        <p className="text-white/60 text-sm md:text-lg">
           Click anywhere on the map to select a location. The city name will be fetched automatically.
         </p>
       </div>
 
       {/* Main Content Container */}
-      <div className="flex-1 overflow-hidden px-8 pb-8">
+      <div className="flex-1 overflow-hidden px-4 md:px-8 pb-6 md:pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
           {/* Map Section - Takes 2 columns */}
           <div className="lg:col-span-2 space-y-6 overflow-hidden">
             {/* Map Container */}
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 shadow-2xl border border-white/20 ml-8">
-              <div className="h-[600px] rounded-2xl overflow-hidden">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-3 md:p-4 shadow-2xl border border-white/20 md:ml-8">
+              <div className="h-[320px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden">
                 <Map onLocationSelect={handleLocationSelect} />
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function AddCityPage() {
 
           {/* Saved Cities Sidebar - Takes 1 column */}
           <div className="lg:col-span-1 overflow-hidden">
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/20 h-[648px] flex flex-col">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 shadow-2xl border border-white/20 h-auto lg:h-[648px] flex flex-col mt-4 lg:mt-0">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-white">Saved Cities</h2>
                 {cities.length > 0 && (

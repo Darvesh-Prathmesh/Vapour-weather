@@ -196,7 +196,7 @@ export function CityWeatherCards() {
 
   if (loading) {
     return (
-      <div className="flex flex-col gap-6 w-[600px]">
+      <div className="flex flex-col gap-6 w-full max-w-md md:max-w-lg lg:w-[600px]">
         <div className="rounded-2xl bg-white/10 backdrop-blur-md p-10 animate-pulse h-64" />
         <div className="rounded-2xl bg-white/10 backdrop-blur-md p-7 animate-pulse h-32" />
         <div className="rounded-2xl bg-white/10 backdrop-blur-md p-7 animate-pulse h-32" />
@@ -206,7 +206,7 @@ export function CityWeatherCards() {
 
   if (error) {
     return (
-      <div className="flex flex-col gap-6 w-[600px]">
+      <div className="flex flex-col gap-6 w-full max-w-md md:max-w-lg lg:w-[600px]">
         <div className="rounded-2xl bg-red-500/20 border border-red-500/40 text-red-100 text-base p-6">
           {error}
         </div>
@@ -216,7 +216,7 @@ export function CityWeatherCards() {
 
   if (!displayWeatherData || displayWeatherData.length === 0) {
     return (
-      <div className="flex flex-col gap-6 w-[600px]">
+      <div className="flex flex-col gap-6 w-full max-w-md md:max-w-lg lg:w-[600px]">
         <div className="rounded-2xl bg-white/10 backdrop-blur-md p-6 text-center">
           <p className="text-white/60 text-base">No cities saved yet. Add cities from the map to see their weather!</p>
         </div>
@@ -231,7 +231,7 @@ export function CityWeatherCards() {
   return (
     <div 
       ref={scrollContainerRef}
-      className="flex flex-col gap-8 w-[600px] max-h-[calc(100vh-150px)] overflow-y-auto pr-4"
+      className="flex flex-col gap-8 w-full max-w-md md:max-w-lg lg:w-[600px] max-h-[calc(100vh-150px)] overflow-y-auto pr-2 md:pr-4"
       style={{
         scrollbarWidth: 'thin',
         scrollbarColor: 'rgba(255, 255, 255, 0.2) transparent',

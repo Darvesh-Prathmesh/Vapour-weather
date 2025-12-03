@@ -119,13 +119,13 @@ export default function NotificationPage() {
   )
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="min-h-screen overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="shrink-0 px-8 pt-8 pb-4">
-        <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-2xl">
-          <div className="flex items-center justify-between">
+      <div className="shrink-0 px-4 md:px-8 pt-6 md:pt-8 pb-4">
+        <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-md rounded-3xl p-4 md:p-6 border border-white/20 shadow-2xl">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="bg-blue-500/30 p-4 rounded-2xl relative">
+              <div className="bg-blue-500/30 p-3 md:p-4 rounded-2xl relative">
                 <Bell className="h-8 w-8 text-blue-400" />
                 {notifications.filter(n => !n.read).length > 0 && (
                   <span className="absolute -top-1 -right-1 h-6 w-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold animate-pulse">
@@ -134,7 +134,7 @@ export default function NotificationPage() {
                 )}
               </div>
               <div>
-                <h1 className="text-4xl font-bold text-white mb-1">Notifications</h1>
+                <h1 className="text-2xl md:text-4xl font-bold text-white mb-1">Notifications</h1>
                 <p className="text-white/60">
                   {notifications.length} total • {activeAlerts.length} active
                 </p>
@@ -154,11 +154,11 @@ export default function NotificationPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-hidden px-8 pb-8">
-        <div className="grid grid-cols-3 gap-6 h-full">
+      <div className="flex-1 overflow-hidden px-4 md:px-8 pb-6 md:pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
           {/* Left Column - Settings */}
-          <div className="col-span-1 space-y-6">
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 hover:border-white/30 transition-all duration-200">
+          <div className="space-y-6">
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 border border-white/20 hover:border-white/30 transition-all duration-200">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-blue-500/20 p-2 rounded-xl">
                   <Settings className="h-5 w-5 text-blue-400" />
@@ -191,7 +191,7 @@ export default function NotificationPage() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:scale-105 transition-all duration-200">
                 <div className="flex items-center justify-between">
                   <div>
@@ -225,9 +225,9 @@ export default function NotificationPage() {
           </div>
 
           {/* Right Column - Notifications List */}
-          <div className="col-span-2 flex flex-col">
+          <div className="lg:col-span-2 flex flex-col">
             {/* Filter Tabs */}
-            <div className="flex gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-4">
               {[
                 { id: "all", label: "All", count: notifications.length },
                 { id: "unread", label: "Unread", count: notifications.filter((n) => !n.read).length },
@@ -250,7 +250,7 @@ export default function NotificationPage() {
             {/* Notifications List with Scroll */}
             <div 
               ref={scrollContainerRef}
-              className="flex-1 bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 overflow-y-auto"
+              className="flex-1 bg-white/10 backdrop-blur-md rounded-3xl p-4 md:p-6 border border-white/20 overflow-y-auto"
               style={{
                 scrollbarWidth: "thin",
                 scrollbarColor: "rgba(255, 255, 255, 0.2) transparent",

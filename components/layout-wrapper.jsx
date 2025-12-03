@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { WeatherSidebar } from "@/components/weather-sidebar"
 import { WeatherHeader } from "@/components/weather-header"
+import { MobileNav } from "@/components/mobile-nav"
 import { useWeatherData } from "@/hooks/useWeatherData"
 import { usePexelsImage } from "@/hooks/usePexelsImage"
 import { useNotifications } from "@/hooks/useNotifications"
@@ -56,7 +57,7 @@ export function LayoutWrapper({ children }) {
   }
 
   return (
-    <main className="h-screen bg-cover bg-center p-4 relative overflow-hidden" style={backgroundStyle}>
+    <main className="min-h-screen bg-cover bg-center p-4 pb-16 md:pb-4 relative overflow-hidden" style={backgroundStyle}>
       {/* AI Loader - Show during initial load */}
       {isInitialLoad && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-white">
@@ -69,19 +70,22 @@ export function LayoutWrapper({ children }) {
       <div className="absolute inset-0 bg-black/40 z-0"></div>
       
       {/* Content with relative positioning */}
-      <div className={`relative z-10 h-full ${isInitialLoad ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}`}>
-        {/* Fixed sidebar on the left */}
+      <div className={`relative z-10 min-h-screen ${isInitialLoad ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}`}>
+        {/* Sidebar (hidden on small screens) */}
         <WeatherSidebar />
 
-        {/* Main content shifted to the right of the sidebar */}
-        <div className="ml-20 flex flex-col h-full overflow-hidden">
+        {/* Main content shifted to the right of the sidebar on desktop */}
+        <div className="ml-0 md:ml-24 flex flex-col min-h-screen overflow-hidden">
           {/* Header at the top, joined to the sidebar */}
           <div className="mb-6">
             <WeatherHeader />
           </div>
 
           {/* Page content */}
-          {children}
+          <div className="flex-1">{children}</div>
+
+          {/* Mobile bottom navigation */}
+          <MobileNav />
         </div>
       </div>
 

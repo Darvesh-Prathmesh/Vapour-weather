@@ -29,8 +29,8 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-white text-xl animate-pulse">Loading settings...</div>
+      <div className="flex items-center justify-center min-h-screen px-4">
+        <div className="text-white text-lg md:text-xl animate-pulse text-center">Loading settings...</div>
       </div>
     )
   }
@@ -105,17 +105,17 @@ export default function SettingsPage() {
   )
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="min-h-screen overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="shrink-0 px-8 pt-8 pb-4">
-        <div className="bg-gradient-to-br from-white-500/20 to-white-500/20 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-2xl">
-          <div className="flex items-center gap-4">
-            <div className="bg-blue-500/30 p-4 rounded-2xl animate-pulse">
+      <div className="shrink-0 px-4 md:px-8 pt-6 md:pt-8 pb-4">
+        <div className="bg-gradient-to-br from-white-500/20 to-white-500/20 backdrop-blur-md rounded-3xl p-4 md:p-6 border border-white/20 shadow-2xl">
+          <div className="flex items-center gap-3 md:gap-4">
+            <div className="bg-blue-500/30 p-3 md:p-4 rounded-2xl animate-pulse">
               <Settings className="h-8 w-8 text-blue-400" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white mb-1">Settings</h1>
-              <p className="text-white/60">Customize your weather app experience</p>
+              <h1 className="text-2xl md:text-4xl font-bold text-white mb-1">Settings</h1>
+              <p className="text-white/60 text-sm md:text-base">Customize your weather app experience</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function SettingsPage() {
 
       {/* Main Content - Scrollable */}
       <div
-        className="flex-1 overflow-y-auto px-8 pb-8"
+        className="flex-1 overflow-y-auto px-4 md:px-8 pb-6 md:pb-8"
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: "rgba(255, 255, 255, 0.2) transparent",
@@ -131,7 +131,7 @@ export default function SettingsPage() {
         }}
       >
         {/* Two Column Grid Layout */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {/* Left Column */}
           <div className="space-y-6">
             {/* 1. Units of Measurement */}
