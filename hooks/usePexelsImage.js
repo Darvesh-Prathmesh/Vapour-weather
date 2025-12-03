@@ -1,7 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 
-const PEXELS_API_KEY = "IgvoSTWaXBW7BPfWv6vwxSPNNLmjGDdXOSn5PdA5KPRU9mwUr0Mvgx5s"
+// Use environment variable so the key can be configured per environment
+const PEXELS_API_KEY = process.env.NEXT_PUBLIC_PEXELS_API_KEY
 const PEXELS_API_URL = "https://api.pexels.com/v1/search"
 
 // Map weather conditions to search terms for better image results
@@ -31,6 +32,13 @@ export function usePexelsImage(condition, cityName) {
   useEffect(() => {
     if (!condition || !cityName) {
       setLoading(false)
+      return
+    }
+
+    if (!PEXELS_API_KEY) {
+      console.error("Missing Pexels API key. Set NEXT_PUBLIC_PEXELS_API_KEY in your environment.")
+      setLoading(false)
+      setError("Missing Pexels API key")
       return
     }
 
